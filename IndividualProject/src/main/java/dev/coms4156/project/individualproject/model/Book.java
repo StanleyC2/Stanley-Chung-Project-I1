@@ -111,13 +111,14 @@ public class Book implements Comparable<Book> {
     if (totalCopies > 0 && copiesAvailable > 0) {
       totalCopies--;
       copiesAvailable--;
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
   public void addCopy() {
-
+    totalCopies++;
+    copiesAvailable++;
   }
 
   /**
@@ -130,7 +131,7 @@ public class Book implements Comparable<Book> {
   public String checkoutCopy() {
     if (copiesAvailable > 0) {
       copiesAvailable--;
-      amountOfTimesCheckedOut--;
+      amountOfTimesCheckedOut++;
       LocalDate today = LocalDate.now();
       LocalDate dueDate = today.plusWeeks(2);
       String dueDateStr = dueDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
@@ -138,7 +139,7 @@ public class Book implements Comparable<Book> {
       return dueDateStr;
     }
 
-    return null;
+    return "Book not available now! Come back later!";
   }
 
   /**
@@ -149,7 +150,7 @@ public class Book implements Comparable<Book> {
    *         {@code false} if no matching due date is found.
    */
   public boolean returnCopy(String date) {
-    if (returnDates.isEmpty()) {
+    if (!returnDates.isEmpty()) {
       for (int i = 0; i < returnDates.size(); i++) {
         if (returnDates.get(i).equals(date)) {
           returnDates.remove(i);
@@ -192,7 +193,7 @@ public class Book implements Comparable<Book> {
   }
 
   public void setShelvingLocation(String shelvingLocation) {
-    this.shelvingLocation = "shelvingLocation";
+    this.shelvingLocation = shelvingLocation;
   }
 
   public String getPublicationDate() {
@@ -275,3 +276,4 @@ public class Book implements Comparable<Book> {
     return String.format("(%d)\t%s", this.id, this.title);
   }
 }
+

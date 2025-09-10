@@ -27,7 +27,7 @@ public class RouteController {
   @GetMapping({"/", "/index"})
   public String index() {
     return "Welcome to the home page! In order to make an API call direct your browser"
-            + "or Postman to an endpoint.";
+            + " or Postman to an endpoint.";
   }
 
   /**
@@ -87,7 +87,7 @@ public class RouteController {
   public ResponseEntity<?> addCopy(@PathVariable Integer bookId) {
     try {
       for (Book book : mockApiService.getBooks()) {
-        StringBuilder currBookId = new StringBuilder(book.getId());
+        //StringBuilder currBookId = new StringBuilder(book.getId());
         if (bookId.equals(book.getId())) {
           book.addCopy();
           return new ResponseEntity<>(book, HttpStatus.OK);
